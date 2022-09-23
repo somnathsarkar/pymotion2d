@@ -60,13 +60,7 @@ class Window(object):
     p_color = colors.DARK_BLUE
     if rigidbody.colliding:
       p_color = colors.DARK_ORANGE
-    vert_ang = np.arctan2(rigidbody.r[1],rigidbody.r[0])
-    vert_angs = rigidbody.ang + np.array([vert_ang, np.pi-vert_ang,
-        -np.pi+vert_ang, -vert_ang]).reshape(-1,1)
-    vert_rad = np.linalg.norm(rigidbody.r/2)
-    vert_x = np.cos(vert_angs)
-    vert_y = np.sin(vert_angs)
-    vert_pos = rigidbody.x+vert_rad*np.hstack((vert_x,vert_y))
+    vert_pos = scene.rigidbody_vertices(rigidbody)
     vert_pos[:,1] = self.dim[1]-vert_pos[:,1]
     pygame.draw.polygon(self.surface, p_color, vert_pos, 0)
     pygame.draw.polygon(self.surface, colors.DARK_GRAY, vert_pos, 2)

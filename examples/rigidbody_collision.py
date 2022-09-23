@@ -38,10 +38,10 @@ def main():
   # Setup static rigidbodies
   scene = pm.Scene([],[],pm.Settings(False, 0.0))
   rigid_a = pm.Rigidbody(True, False, 1, 2, 1.0, 0.0, dim/2,
-      np.zeros(2), np.array(_RIGID_A_DIM), 0.0)
+      np.zeros(2), np.array(_RIGID_A_DIM), 0.0, 0.0)
   rigid_b = pm.Rigidbody(True, False, 1, 2, 1.0, 1.0,
       np.array([0, dim[1]/2]), np.zeros(2),
-      np.array(_RIGID_B_DIM), 0.0)
+      np.array(_RIGID_B_DIM), 0.0, 0.0)
   scene.rigidbodies.extend([rigid_a,rigid_b])
   while window.running:
     new_time = time.perf_counter()
@@ -57,7 +57,7 @@ def main():
     window.process_events()
     if not window.running:
       break
-    pm.update_particle_physics(scene, dt)
+    pm.update_rigidbody_physics(scene, dt)
     window.render_scene(scene)
     prev_time = new_time
 
